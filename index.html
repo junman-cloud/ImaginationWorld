@@ -525,7 +525,7 @@
             <a href="#gallery">Portfolio</a>
             <a href="#services">Services</a>
             <a href="#shop">Shop</a>
-            <a href="#inquiry" onclick="showContact()">Contact</a>
+            <a href="javascript:void(0)" onclick="openContactModal()">Contact</a>
         </div>
     </nav>
 
@@ -652,7 +652,7 @@
         <div class="services-grid reveal">
             <!-- Service 1: Reproductions (Previously Service 2) -->
             <div class="service-card">
-                <img src="images/reproduction.png" alt="Starry Night Reproduction">
+                <img src="images/new_reproduction.png" alt="Museum Quality Masterpiece">
                 <div class="service-content">
                     <h3>Masterpiece Reproductions</h3>
                     <p>Own a museum-quality hand-painted reproduction of your favorite famous artwork.</p>
@@ -907,19 +907,19 @@
             <div class="service-card clickable-card" onclick="openShopModal('bookmarks')">
                 <img src="images/bookmark.jpg" style="height: 200px; object-fit: cover;" alt="Custom Art Bookmark">
                 <div class="service-content">
-                    <span class="price-tag">$15 Each</span>
+                    <span class="price-tag">₹1,250 Each</span>
                     <h3>Custom Art Bookmarks</h3>
                     <p>Hand-painted floral bookmarks with gold tassel accents.</p>
                     <span class="service-link" style="color: var(--accent);">View Custom Options & Order</span>
                 </div>
             </div>
             <div class="service-card clickable-card" style="border-top: 5px solid var(--primary);"
-                onclick="openShopModal('totes')">
-                <img src="images/tote.png" style="height: 200px; object-fit: cover;" alt="Art Tote Bag">
+                onclick="openShopModal('journals')">
+                <img src="images/journal.png" style="height: 200px; object-fit: cover;" alt="Art Journal">
                 <div class="service-content">
-                    <span class="price-tag">$25 Each</span>
-                    <h3>Art Tote Bags</h3>
-                    <p>Durable, eco-friendly tote bags featuring our signature "Starry Night" reproduction.</p>
+                    <span class="price-tag">₹2,100 Each</span>
+                    <h3>Art Journals</h3>
+                    <p>Premium, custom-painted journals featuring our signature "Starry Night" reproduction.</p>
                     <span class="service-link" style="color: var(--accent);">View Custom Options & Order</span>
                 </div>
             </div>
@@ -956,16 +956,6 @@
             </div>
         </div>
 
-        <div class="faq-item">
-            <div class="faq-question">
-                Do you ship international orders?
-                <div class="faq-icon"></div>
-            </div>
-            <div class="faq-answer">
-                Yes, Imagination World ships worldwide! We use premium, insured couriers to ensure your artwork or
-                invitations arrive safely and in perfect condition.
-            </div>
-        </div>
 
         <div class="faq-item">
             <div class="faq-question">
@@ -979,6 +969,28 @@
         </div>
     </section>
 
+
+    <!-- --- CONTACT MODAL --- -->
+    <div id="contact-modal" class="modal-overlay">
+        <div class="modal-content" style="text-align: center; max-width: 500px;">
+            <div class="close-modal" onclick="closeContactModal()">&times;</div>
+            <div class="modal-header" style="margin-bottom: 20px;">
+                <h2
+                    style="font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--primary); font-style: italic;">
+                    Get in Touch</h2>
+            </div>
+            <p style="font-size: 1.1rem; color: #475569; margin-bottom: 30px;">For all inquiries and creative
+                collaborations, please email us directly at:</p>
+            <a href="mailto:imagination.world.mariyam@gmail.com"
+                style="background: var(--primary); color: white; padding: 15px 25px; font-size: 1rem; text-decoration: none; border-radius: 50px; display: inline-block; font-weight: 700; letter-spacing: 1px; transition: transform 0.3s, box-shadow 0.3s;"
+                onmouseover="this.style.boxShadow='0 10px 20px rgba(30,58,138,0.2)'; this.style.transform='translateY(-2px)'"
+                onmouseout="this.style.boxShadow='none'; this.style.transform='none'">
+                imagination.world.mariyam@gmail.com
+            </a>
+            <p style="font-size: 0.9rem; color: #94a3b8; font-style: italic; margin-top: 30px;">We look forward to
+                bringing your vision to life!</p>
+        </div>
+    </div>
 
     <!-- --- SHOP MODAL --- -->
     <div id="shop-modal" class="modal-overlay">
@@ -1012,20 +1024,20 @@
         const shopData = {
             'bookmarks': {
                 title: 'Bespoke Art Bookmarks',
-                price: '$15',
+                price: '₹1,250',
                 designs: ['Floral Theme', 'Landscape Art', 'Calligraphy Name', 'Abstract Swirls'],
                 options: [
                     { name: 'Tassel Accents', detail: 'Gold, Royal Blue, Silk White, or Velvet Emerald.' },
                     { name: 'Personalization', detail: 'Add a name or short quote in hand-lettered calligraphy.' }
                 ]
             },
-            'totes': {
-                title: 'Hand-Painted Tote Bags',
-                price: '$25',
+            'journals': {
+                title: 'Hand-Painted Art Journals',
+                price: '₹2,100',
                 designs: ['Starry Night', 'Sunflowers', 'Faceless Portrait', 'Botanical Sketch'],
                 options: [
-                    { name: 'Fabric Color', detail: 'Natural Canvas, Midnight Blue, or Forest Green.' },
-                    { name: 'Durability', detail: 'Painted with special fabric mediums (washable).' }
+                    { name: 'Cover Color', detail: 'Ivory, Midnight Blue, or Forest Green.' },
+                    { name: 'Durability', detail: 'Painted with protective sealant for long-lasting use.' }
                 ]
             }
         };
@@ -1110,6 +1122,26 @@
         document.getElementById('shop-modal').addEventListener('click', function (e) {
             if (e.target === this) closeShopModal();
         });
+
+        document.getElementById('contact-modal').addEventListener('click', function (e) {
+            if (e.target === this) closeContactModal();
+        });
+
+        function openContactModal() {
+            const modal = document.getElementById('contact-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contact-modal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 400);
+        }
 
         // --- INTERSECTION OBSERVER FOR REVEAL ON SCROLL ---
         const observerOptions = {
